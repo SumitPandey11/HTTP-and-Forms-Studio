@@ -1,19 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <head>
-	<meta charset="utf-8">
-	<script>
-		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
-	</script>
+  <meta charset="utf-8" />
+  <script>
+    function setSearchEngine(event) {
+		window.console.log("Set Search engine function called...");
+       //let searchEngine =  document.querySelector("input[name=engine]:checked") ;
+	   alert("hello....");
+       let searchEngine;
+       let ele = document.getElementsByName("engine");
+
+       for (i = 0; i < ele.length; i++) {
+		alert("inside for " + ele[i].value  + " Checked " + ele[i].checked);
+         if (ele[i].checked) searchEngine = ele[i].value;
+       }
+       let actionURL = "";
+       if (searchEngine === "google") {
+         actionURL = "https://www.google.com/search";
+       } else if (searchEngine === "duckDuckGo") {
+         actionURL = "https://duckduckgo.com/";
+       } else if (searchEngine === "bing") {
+         actionURL = "https://www.bing.com/search";
+       } else if (searchEngine === "ask") {
+         actionURL = "https://www.ask.com/web";
+       }
+       //document.getElementById("searchForm").setAttribute("action",actionURL);
+       let frm = document.getElementById("searchForm");
+       frm.action = actionURL;
+	   alert("hello...222." + actionURL);
+	   if(actionURL === ""){
+		   aler("actionURL is blank");
+		   event.preventDefault();
+	   }
+       
+     }
+
+     // TODO: create a handler
+     window.addEventListener("load", function () {
+       // TODO: register the handler
+       let form = document.getElementById("searchForm");
+       form.addEventListener("submit", setSearchEngine(event));
+     });
+  </script>
 </head>
 
 <body>
-
-	<form id="searchForm">
+  <form id="searchForm">
     <!-- TODO: add form elements -->
-	</form>
+    <label>Search : <input type="text" name="q" /></label>
 
+    <label>Google <input type="radio" name="engine" value="google" /></label>
+    <label>DuckDuckGo <input type="radio" name="engine" value="duckDuckGo"/></label>
+    <label>Bing <input type="radio" name="engine" value="bing"/></label>
+    <label>Ask <input type="radio" name="engine" value="ask" /></label>
+
+    <input type="submit" value="Go!" />
+  </form>
 </body>
